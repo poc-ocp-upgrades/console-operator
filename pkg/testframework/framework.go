@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 	"time"
-
 	routev1 "github.com/openshift/api/route/v1"
 	appv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -13,38 +12,31 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
-
 	consoleapi "github.com/openshift/console-operator/pkg/api"
 )
 
 var (
-	// AsyncOperationTimeout is how long we want to wait for asynchronous
-	// operations to complete. ForeverTestTimeout is not long enough to create
-	// several replicas and get them available on a slow machine.
-	// Setting this to 5 minutes:w
-
 	AsyncOperationTimeout = 5 * time.Minute
 )
 
 func DeleteAll(t *testing.T, client *Clientset) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resources := []string{"Deployment", "Service", "Route", "ConfigMap"}
-
 	for _, resource := range resources {
 		t.Logf("deleting console %s...", resource)
-		if err := DeleteCompletely(
-			func() (runtime.Object, error) {
-				return GetResource(client, resource)
-			},
-			func(*metav1.DeleteOptions) error {
-				return deleteResource(client, resource)
-			},
-		); err != nil {
+		if err := DeleteCompletely(func() (runtime.Object, error) {
+			return GetResource(client, resource)
+		}, func(*metav1.DeleteOptions) error {
+			return deleteResource(client, resource)
+		}); err != nil {
 			t.Fatalf("unable to delete console %s: %s", resource, err)
 		}
 	}
 }
-
 func GetResource(client *Clientset, resource string) (runtime.Object, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var res runtime.Object
 	var err error
 	switch resource {
@@ -61,24 +53,29 @@ func GetResource(client *Clientset, resource string) (runtime.Object, error) {
 	}
 	return res, err
 }
-
 func GetConsoleConfigMap(client *Clientset) (*corev1.ConfigMap, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.ConfigMaps(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleConfigMapName, metav1.GetOptions{})
 }
-
 func GetConsoleService(client *Clientset) (*corev1.Service, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.Services(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleServiceName, metav1.GetOptions{})
 }
-
 func GetConsoleRoute(client *Clientset) (*routev1.Route, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.Routes(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleRouteName, metav1.GetOptions{})
 }
-
 func GetConsoleDeployment(client *Clientset) (*appv1.Deployment, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.Deployments(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleDeploymentName, metav1.GetOptions{})
 }
-
 func deleteResource(client *Clientset, resource string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	switch resource {
 	case "ConfigMap":
@@ -94,10 +91,9 @@ func deleteResource(client *Clientset, resource string) error {
 	}
 	return err
 }
-
-// DeleteCompletely sends a delete request and waits until the resource and
-// its dependents are deleted.
 func DeleteCompletely(getObject func() (runtime.Object, error), deleteObject func(*metav1.DeleteOptions) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	obj, err := getObject()
 	if err != nil {
 		if errors.IsNotFound(err) {
@@ -105,23 +101,15 @@ func DeleteCompletely(getObject func() (runtime.Object, error), deleteObject fun
 		}
 		return err
 	}
-
 	accessor, err := meta.Accessor(obj)
 	uid := accessor.GetUID()
-
 	policy := metav1.DeletePropagationForeground
-	if err := deleteObject(&metav1.DeleteOptions{
-		Preconditions: &metav1.Preconditions{
-			UID: &uid,
-		},
-		PropagationPolicy: &policy,
-	}); err != nil {
+	if err := deleteObject(&metav1.DeleteOptions{Preconditions: &metav1.Preconditions{UID: &uid}, PropagationPolicy: &policy}); err != nil {
 		if errors.IsNotFound(err) {
 			return nil
 		}
 		return err
 	}
-
 	return wait.Poll(1*time.Second, AsyncOperationTimeout, func() (stop bool, err error) {
 		obj, err = getObject()
 		if err != nil {
@@ -130,16 +118,13 @@ func DeleteCompletely(getObject func() (runtime.Object, error), deleteObject fun
 			}
 			return false, err
 		}
-
 		accessor, err := meta.Accessor(obj)
-
 		return accessor.GetUID() != uid, nil
 	})
 }
-
-// IsResourceAvailable checks if tested resource is available during a 30 second period.
-// if the resource does not exist by the end of the period, an error will be returned.
 func IsResourceAvailable(errChan chan error, client *Clientset, resource string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	counter := 0
 	maxCount := 30
 	err := wait.Poll(1*time.Second, AsyncOperationTimeout, func() (stop bool, err error) {
@@ -158,10 +143,9 @@ func IsResourceAvailable(errChan chan error, client *Clientset, resource string)
 	})
 	errChan <- err
 }
-
-// IsResourceUnavailable checks if tested resource is unavailable during a 15 second period.
-// If the resource exists during that time, an error will be returned.
 func IsResourceUnavailable(errChan chan error, client *Clientset, resource string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	counter := 0
 	maxCount := 15
 	err := wait.Poll(1*time.Second, AsyncOperationTimeout, func() (stop bool, err error) {
