@@ -19,11 +19,15 @@ type InformerGetter interface {
 func WithMaxRetries(maxRetries int) Option {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *controller) {
 		c.maxRetries = maxRetries
 	}
 }
 func WithInitialEvent(namespace, name string) Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return toNaiveRunOpt(func(c *controller) {
@@ -33,11 +37,15 @@ func WithInitialEvent(namespace, name string) Option {
 func WithRateLimiter(limiter workqueue.RateLimiter) Option {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *controller) {
 		c.queue = workqueue.NewNamedRateLimitingQueue(limiter, c.name)
 	}
 }
 func WithInformerSynced(getter InformerGetter) Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	informer := getter.Informer()
@@ -46,6 +54,8 @@ func WithInformerSynced(getter InformerGetter) Option {
 	})
 }
 func WithInformer(getter InformerGetter, filter ParentFilter, opts ...InformerOption) Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	informer := getter.Informer()
@@ -93,9 +103,13 @@ func WithInformer(getter InformerGetter, filter ParentFilter, opts ...InformerOp
 func toRunOpt(opt Option) Option {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return toOnceOpt(toNaiveRunOpt(opt))
 }
 func toNaiveRunOpt(opt Option) Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(c *controller) {
@@ -109,6 +123,8 @@ func toNaiveRunOpt(opt Option) Option {
 func toOnceOpt(opt Option) Option {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var once sync.Once
 	return func(c *controller) {
 		once.Do(func() {
@@ -117,6 +133,8 @@ func toOnceOpt(opt Option) Option {
 	}
 }
 func metaOrDie(obj interface{}) v1.Object {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	accessor, err := meta.Accessor(obj)

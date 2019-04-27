@@ -13,6 +13,8 @@ import (
 func TestDefaultService(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct{ cr *operatorv1.Console }
 	tests := []struct {
 		name	string
@@ -28,6 +30,8 @@ func TestDefaultService(t *testing.T) {
 	}
 }
 func TestStub(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

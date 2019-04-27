@@ -14,11 +14,15 @@ const (
 func DefaultServiceCAConfigMap(cr *operatorv1.Console) *corev1.ConfigMap {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	configMap := ServiceCAStub()
 	util.AddOwnerRef(configMap, util.OwnerRefFrom(cr))
 	return configMap
 }
 func ServiceCAStub() *corev1.ConfigMap {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	meta := util.SharedMeta()

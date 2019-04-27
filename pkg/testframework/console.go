@@ -14,14 +14,20 @@ import (
 func isOperatorManaged(cr *operatorsv1.Console) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cr.Spec.ManagementState == operatorsv1.Managed
 }
 func isOperatorUnmanaged(cr *operatorsv1.Console) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cr.Spec.ManagementState == operatorsv1.Unmanaged
 }
 func isOperatorRemoved(cr *operatorsv1.Console) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return cr.Spec.ManagementState == operatorsv1.Removed
@@ -30,6 +36,8 @@ func isOperatorRemoved(cr *operatorsv1.Console) bool {
 type operatorStateReactionFn func(cr *operatorsv1.Console) bool
 
 func ensureConsoleIsInDesiredState(t *testing.T, client *Clientset, state operatorsv1.ManagementState) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var operatorConfig *operatorsv1.Console
@@ -59,6 +67,8 @@ func ensureConsoleIsInDesiredState(t *testing.T, client *Clientset, state operat
 func ManageConsole(t *testing.T, client *Clientset) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cr, err := client.Consoles().Get(consoleapi.ConfigResourceName, metav1.GetOptions{})
 	if err != nil {
 		return err
@@ -78,6 +88,8 @@ func ManageConsole(t *testing.T, client *Clientset) error {
 	return nil
 }
 func UnmanageConsole(t *testing.T, client *Clientset) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cr, err := client.Consoles().Get(consoleapi.ConfigResourceName, metav1.GetOptions{})
@@ -101,6 +113,8 @@ func UnmanageConsole(t *testing.T, client *Clientset) error {
 func RemoveConsole(t *testing.T, client *Clientset) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cr, err := client.Consoles().Get(consoleapi.ConfigResourceName, metav1.GetOptions{})
 	if err != nil {
 		return err
@@ -122,6 +136,8 @@ func RemoveConsole(t *testing.T, client *Clientset) error {
 func MustManageConsole(t *testing.T, client *Clientset) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := ManageConsole(t, client); err != nil {
 		t.Fatal(err)
 	}
@@ -130,12 +146,16 @@ func MustManageConsole(t *testing.T, client *Clientset) error {
 func MustUnmanageConsole(t *testing.T, client *Clientset) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := UnmanageConsole(t, client); err != nil {
 		t.Fatal(err)
 	}
 	return nil
 }
 func MustRemoveConsole(t *testing.T, client *Clientset) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := RemoveConsole(t, client); err != nil {

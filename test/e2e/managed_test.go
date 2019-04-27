@@ -8,6 +8,8 @@ import (
 func TestManaged(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := testframework.MustNewClientset(t, nil)
 	defer testframework.MustManageConsole(t, client)
 	testframework.MustManageConsole(t, client)
@@ -26,6 +28,8 @@ func TestManaged(t *testing.T) {
 func TestEditManagedConfigMap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := testframework.MustNewClientset(t, nil)
 	defer testframework.MustManageConsole(t, client)
 	testframework.MustManageConsole(t, client)
@@ -37,6 +41,8 @@ func TestEditManagedConfigMap(t *testing.T) {
 func TestEditManagedService(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := testframework.MustNewClientset(t, nil)
 	defer testframework.MustManageConsole(t, client)
 	testframework.MustManageConsole(t, client)
@@ -46,6 +52,8 @@ func TestEditManagedService(t *testing.T) {
 	}
 }
 func TestEditManagedRoute(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client := testframework.MustNewClientset(t, nil)

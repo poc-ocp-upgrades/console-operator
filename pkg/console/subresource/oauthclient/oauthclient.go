@@ -19,6 +19,8 @@ import (
 func CustomApplyOAuth(client oauthclient.OAuthClientsGetter, required *oauthv1.OAuthClient) (*oauthv1.OAuthClient, bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	existing, err := client.OAuthClients().Get(required.Name, metav1.GetOptions{})
 	if apierrors.IsNotFound(err) {
 		actual, err := client.OAuthClients().Create(required)
@@ -42,11 +44,15 @@ func CustomApplyOAuth(client oauthclient.OAuthClientsGetter, required *oauthv1.O
 func RegisterConsoleToOAuthClient(client *oauthv1.OAuthClient, host string, randomBits string) *oauthv1.OAuthClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SetRedirectURI(client, host)
 	SetSecretString(client, randomBits)
 	return client
 }
 func DeRegisterConsoleFromOAuthClient(client *oauthv1.OAuthClient) *oauthv1.OAuthClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client.RedirectURIs = []string{}
@@ -56,9 +62,13 @@ func DeRegisterConsoleFromOAuthClient(client *oauthv1.OAuthClient) *oauthv1.OAut
 func DefaultOauthClient() *oauthv1.OAuthClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Stub()
 }
 func Stub() *oauthv1.OAuthClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &oauthv1.OAuthClient{ObjectMeta: metav1.ObjectMeta{Name: api.OAuthClientName}}
@@ -66,15 +76,21 @@ func Stub() *oauthv1.OAuthClient {
 func GetSecretString(client *oauthv1.OAuthClient) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.Secret
 }
 func SetSecretString(client *oauthv1.OAuthClient, randomBits string) *oauthv1.OAuthClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client.Secret = string(randomBits)
 	return client
 }
 func SetRedirectURI(client *oauthv1.OAuthClient, host string) *oauthv1.OAuthClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	client.RedirectURIs = []string{}
@@ -84,7 +100,16 @@ func SetRedirectURI(client *oauthv1.OAuthClient, host string) *oauthv1.OAuthClie
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

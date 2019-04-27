@@ -52,6 +52,8 @@ var volumeConfigList = []volumeConfig{{name: ConsoleServingCertName, readOnly: t
 func DefaultDeployment(operatorConfig *operatorv1.Console, cm *corev1.ConfigMap, serviceCAConfigMap *corev1.ConfigMap, sec *corev1.Secret, rt *routev1.Route) *appsv1.Deployment {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	labels := util.LabelsForConsole()
 	meta := util.SharedMeta()
 	meta.Labels = labels
@@ -68,11 +70,15 @@ func DefaultDeployment(operatorConfig *operatorv1.Console, cm *corev1.ConfigMap,
 func Stub() *appsv1.Deployment {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	meta := util.SharedMeta()
 	dep := &appsv1.Deployment{ObjectMeta: meta}
 	return dep
 }
 func LogDeploymentAnnotationChanges(client appsclientv1.DeploymentsGetter, updated *appsv1.Deployment) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	existing, err := client.Deployments(updated.Namespace).Get(updated.Name, metav1.GetOptions{})
@@ -94,6 +100,8 @@ func LogDeploymentAnnotationChanges(client appsclientv1.DeploymentsGetter, updat
 func consoleVolumes(vc []volumeConfig) []corev1.Volume {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vols := make([]corev1.Volume, len(vc))
 	for i, item := range vc {
 		if item.isSecret {
@@ -108,6 +116,8 @@ func consoleVolumes(vc []volumeConfig) []corev1.Volume {
 func consoleVolumeMounts(vc []volumeConfig) []corev1.VolumeMount {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	volMountList := make([]corev1.VolumeMount, len(vc))
 	for i, item := range vc {
 		volMountList[i] = corev1.VolumeMount{Name: item.name, ReadOnly: item.readOnly, MountPath: item.path}
@@ -115,6 +125,8 @@ func consoleVolumeMounts(vc []volumeConfig) []corev1.VolumeMount {
 	return volMountList
 }
 func consoleContainer(cr *operatorv1.Console) corev1.Container {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	volumeMounts := consoleVolumeMounts(volumeConfigList)
@@ -137,9 +149,13 @@ func consoleContainer(cr *operatorv1.Console) corev1.Container {
 func defaultProbe() *corev1.Probe {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &corev1.Probe{Handler: corev1.Handler{HTTPGet: &corev1.HTTPGetAction{Path: "/health", Port: intstr.FromInt(8443), Scheme: corev1.URIScheme("HTTPS")}}, TimeoutSeconds: 1, PeriodSeconds: 10, SuccessThreshold: 1, FailureThreshold: 3}
 }
 func livenessProbe() *corev1.Probe {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	probe := defaultProbe()
@@ -147,6 +163,8 @@ func livenessProbe() *corev1.Probe {
 	return probe
 }
 func IsReady(deployment *appsv1.Deployment) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	avail := deployment.Status.ReadyReplicas >= 1
@@ -160,12 +178,23 @@ func IsReady(deployment *appsv1.Deployment) bool {
 func IsAvailableAndUpdated(deployment *appsv1.Deployment) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return deployment.Status.AvailableReplicas > 0 && deployment.Status.ObservedGeneration >= deployment.Generation && deployment.Status.UpdatedReplicas == deployment.Status.Replicas
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

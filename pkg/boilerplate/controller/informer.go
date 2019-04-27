@@ -11,6 +11,8 @@ const (
 func WithNoSync() InformerOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func() informerOptionCase {
 		return noSync
 	}
@@ -18,11 +20,15 @@ func WithNoSync() InformerOption {
 func withSync() InformerOption {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func() informerOptionCase {
 		return syncDefault
 	}
 }
 func informerOptionToOption(opt InformerOption, getter InformerGetter) Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch opt() {

@@ -29,12 +29,16 @@ const (
 func getLogoutRedirect(consoleConfig *configv1.Console) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(consoleConfig.Spec.Authentication.LogoutRedirect) > 0 {
 		return consoleConfig.Spec.Authentication.LogoutRedirect
 	}
 	return defaultLogoutURL
 }
 func getBrand(operatorConfig *operatorv1.Console) operatorv1.Brand {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(operatorConfig.Spec.Customization.Brand) > 0 {
@@ -45,6 +49,8 @@ func getBrand(operatorConfig *operatorv1.Console) operatorv1.Brand {
 func getDocURL(operatorConfig *operatorv1.Console) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(operatorConfig.Spec.Customization.DocumentationBaseURL) > 0 {
 		return operatorConfig.Spec.Customization.DocumentationBaseURL
 	}
@@ -53,12 +59,16 @@ func getDocURL(operatorConfig *operatorv1.Console) string {
 func getApiUrl(infrastructureConfig *configv1.Infrastructure) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if infrastructureConfig != nil {
 		return infrastructureConfig.Status.APIServerURL
 	}
 	return ""
 }
 func DefaultConfigMap(operatorConfig *operatorv1.Console, consoleConfig *configv1.Console, managedConfig *corev1.ConfigMap, infrastructureConfig *configv1.Infrastructure, rt *routev1.Route) (*corev1.ConfigMap, bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	logoutRedirect := getLogoutRedirect(consoleConfig)
@@ -92,12 +102,16 @@ func DefaultConfigMap(operatorConfig *operatorv1.Console, consoleConfig *configv
 func Stub() *corev1.ConfigMap {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	meta := util.SharedMeta()
 	meta.Name = ConsoleConfigMapName
 	configMap := &corev1.ConfigMap{ObjectMeta: meta}
 	return configMap
 }
 func NewYamlConfig(host string, logoutRedirect string, brand operatorv1.Brand, docURL string, apiServerURL string) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conf := yaml.MapSlice{{Key: "kind", Value: "ConsoleConfig"}, {Key: "apiVersion", Value: "console.openshift.io/v1"}, {Key: "auth", Value: authServerYaml(logoutRedirect)}, {Key: "clusterInfo", Value: clusterInfo(host, apiServerURL)}, {Key: "customization", Value: customization(brand, docURL)}, {Key: "servingInfo", Value: servingInfo()}}
@@ -111,9 +125,13 @@ func NewYamlConfig(host string, logoutRedirect string, brand operatorv1.Brand, d
 func servingInfo() yaml.MapSlice {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return yaml.MapSlice{{Key: "bindAddress", Value: "https://0.0.0.0:8443"}, {Key: "certFile", Value: certFilePath}, {Key: "keyFile", Value: keyFilePath}}
 }
 func customization(brand operatorv1.Brand, docURL string) yaml.MapSlice {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return yaml.MapSlice{{Key: "branding", Value: brand}, {Key: "documentationBaseURL", Value: docURL}}
@@ -121,9 +139,13 @@ func customization(brand operatorv1.Brand, docURL string) yaml.MapSlice {
 func clusterInfo(host string, apiServerURL string) yaml.MapSlice {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return yaml.MapSlice{{Key: "consoleBaseAddress", Value: consoleBaseAddr(host)}, {Key: "consoleBasePath", Value: ""}, {Key: "masterPublicURL", Value: apiServerURL}}
 }
 func authServerYaml(logoutRedirect string) yaml.MapSlice {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return yaml.MapSlice{{Key: "clientID", Value: api.OpenShiftConsoleName}, {Key: "clientSecretFile", Value: clientSecretFilePath}, {Key: "logoutRedirect", Value: logoutRedirect}, {Key: "oauthEndpointCAFile", Value: oauthEndpointCAFilePath}}
@@ -131,9 +153,13 @@ func authServerYaml(logoutRedirect string) yaml.MapSlice {
 func consoleBaseAddr(host string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return util.HTTPS(host)
 }
 func extractYAML(managedConfig *corev1.ConfigMap) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := managedConfig.Data

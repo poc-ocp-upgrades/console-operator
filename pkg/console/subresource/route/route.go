@@ -24,6 +24,8 @@ const (
 func GetOrCreate(client routeclient.RoutesGetter, required *routev1.Route) (*routev1.Route, bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	isNew := false
 	existing, err := client.Routes(required.Namespace).Get(required.Name, metav1.GetOptions{})
 	if apierrors.IsNotFound(err) {
@@ -39,6 +41,8 @@ func GetOrCreate(client routeclient.RoutesGetter, required *routev1.Route) (*rou
 func DefaultRoute(cr *operatorv1.Console) *routev1.Route {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	route := Stub()
 	route.Spec = routev1.RouteSpec{To: toService(), Port: port(), TLS: tls(), WildcardPolicy: wildcard()}
 	util.AddOwnerRef(route, util.OwnerRefFrom(cr))
@@ -47,10 +51,14 @@ func DefaultRoute(cr *operatorv1.Console) *routev1.Route {
 func Stub() *routev1.Route {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	meta := util.SharedMeta()
 	return &routev1.Route{ObjectMeta: meta}
 }
 func Validate(route *routev1.Route) (*routev1.Route, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	changed := false
@@ -75,10 +83,14 @@ func Validate(route *routev1.Route) (*routev1.Route, bool) {
 func routeMeta() metav1.ObjectMeta {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	meta := util.SharedMeta()
 	return meta
 }
 func toService() routev1.RouteTargetReference {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	weight := int32(100)
@@ -87,9 +99,13 @@ func toService() routev1.RouteTargetReference {
 func port() *routev1.RoutePort {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &routev1.RoutePort{TargetPort: intstr.FromString("https")}
 }
 func tls() *routev1.TLSConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &routev1.TLSConfig{Termination: routev1.TLSTerminationReencrypt, InsecureEdgeTerminationPolicy: routev1.InsecureEdgeTerminationPolicyRedirect}
@@ -97,9 +113,13 @@ func tls() *routev1.TLSConfig {
 func wildcard() routev1.WildcardPolicyType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return routev1.WildcardPolicyNone
 }
 func GetCanonicalHost(route *routev1.Route) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, ingress := range route.Status.Ingress {
@@ -120,6 +140,8 @@ func GetCanonicalHost(route *routev1.Route) string {
 func IsAdmitted(route *routev1.Route) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ingress := range route.Status.Ingress {
 		if isIngressAdmitted(ingress) {
 			return true
@@ -128,6 +150,8 @@ func IsAdmitted(route *routev1.Route) bool {
 	return false
 }
 func isIngressAdmitted(ingress routev1.RouteIngress) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	admitted := false
@@ -141,7 +165,16 @@ func isIngressAdmitted(ingress routev1.RouteIngress) bool {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

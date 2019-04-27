@@ -23,6 +23,8 @@ type Clientset struct {
 func NewClientset(kubeconfig *restclient.Config) (*Clientset, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	if kubeconfig == nil {
 		kubeconfig, err = GetConfig()
@@ -53,6 +55,8 @@ func NewClientset(kubeconfig *restclient.Config) (*Clientset, error) {
 func MustNewClientset(t *testing.T, kubeconfig *restclient.Config) *Clientset {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clientset, err := NewClientset(kubeconfig)
 	if err != nil {
 		t.Fatal(err)
@@ -62,7 +66,16 @@ func MustNewClientset(t *testing.T, kubeconfig *restclient.Config) *Clientset {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

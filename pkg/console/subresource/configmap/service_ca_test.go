@@ -12,6 +12,8 @@ import (
 func TestDefaultServiceCAConfigMap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct{ cr *operatorv1.Console }
 	tests := []struct {
 		name	string
@@ -27,6 +29,8 @@ func TestDefaultServiceCAConfigMap(t *testing.T) {
 	}
 }
 func TestServiceCAStub(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {

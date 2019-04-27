@@ -13,6 +13,8 @@ import (
 func TestDefaultSecret(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct {
 		cr		*operatorv1.Console
 		randomBits	string
@@ -33,6 +35,8 @@ func TestDefaultSecret(t *testing.T) {
 func TestStub(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		name	string
 		want	*corev1.Secret
@@ -46,6 +50,8 @@ func TestStub(t *testing.T) {
 	}
 }
 func TestGetSecretString(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct{ secret *corev1.Secret }
@@ -63,6 +69,8 @@ func TestGetSecretString(t *testing.T) {
 	}
 }
 func TestSetSecretString(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct {

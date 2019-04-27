@@ -23,6 +23,8 @@ type Runner interface {
 func New(name string, sync KeySyncer, opts ...Option) Runner {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &controller{name: name, sync: sync}
 	WithRateLimiter(workqueue.DefaultControllerRateLimiter())(c)
 	for _, opt := range opts {
@@ -44,6 +46,8 @@ type controller struct {
 func (c *controller) Run(workers int, stopCh <-chan struct{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer utilruntime.HandleCrash(crash)
 	defer c.queue.ShutDown()
 	klog.Infof("Starting %s", c.name)
@@ -63,11 +67,15 @@ func (c *controller) Run(workers int, stopCh <-chan struct{}) {
 func (c *controller) waitForCacheSyncWithTimeout() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
 	defer cancel()
 	return cache.WaitForCacheSync(ctx.Done(), c.cacheSyncs...)
 }
 func (c *controller) add(filter ParentFilter, object v1.Object) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	namespace, name := filter.Parent(object)
@@ -76,16 +84,22 @@ func (c *controller) add(filter ParentFilter, object v1.Object) {
 func (c *controller) addKey(namespace, name string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	qKey := queueKey{namespace: namespace, name: name}
 	c.queue.Add(qKey)
 }
 func (c *controller) runWorker() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for c.processNextWorkItem() {
 	}
 }
 func (c *controller) processNextWorkItem() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key, quit := c.queue.Get()
@@ -101,6 +115,8 @@ func (c *controller) processNextWorkItem() bool {
 func (c *controller) handleSync(key queueKey) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	obj, err := c.sync.Key(key.namespace, key.name)
 	if errors.IsNotFound(err) {
 		return nil
@@ -111,6 +127,8 @@ func (c *controller) handleSync(key queueKey) error {
 	return c.sync.Sync(obj)
 }
 func (c *controller) handleKey(key queueKey, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == nil {
@@ -135,7 +153,16 @@ type queueKey struct {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

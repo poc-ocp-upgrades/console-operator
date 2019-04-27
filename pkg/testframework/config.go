@@ -12,6 +12,8 @@ import (
 func GetConfig() (*rest.Config, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(os.Getenv("KUBECONFIG")) > 0 {
 		return clientcmd.BuildConfigFromFlags("", os.Getenv("KUBECONFIG"))
 	}

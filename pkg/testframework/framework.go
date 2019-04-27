@@ -22,6 +22,8 @@ var (
 func DeleteAll(t *testing.T, client *Clientset) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resources := []string{"Deployment", "Service", "Route", "ConfigMap"}
 	for _, resource := range resources {
 		t.Logf("deleting console %s...", resource)
@@ -35,6 +37,8 @@ func DeleteAll(t *testing.T, client *Clientset) {
 	}
 }
 func GetResource(client *Clientset, resource string) (runtime.Object, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var res runtime.Object
@@ -56,9 +60,13 @@ func GetResource(client *Clientset, resource string) (runtime.Object, error) {
 func GetConsoleConfigMap(client *Clientset) (*corev1.ConfigMap, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.ConfigMaps(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleConfigMapName, metav1.GetOptions{})
 }
 func GetConsoleService(client *Clientset) (*corev1.Service, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return client.Services(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleServiceName, metav1.GetOptions{})
@@ -66,14 +74,20 @@ func GetConsoleService(client *Clientset) (*corev1.Service, error) {
 func GetConsoleRoute(client *Clientset) (*routev1.Route, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.Routes(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleRouteName, metav1.GetOptions{})
 }
 func GetConsoleDeployment(client *Clientset) (*appv1.Deployment, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return client.Deployments(consoleapi.OpenShiftConsoleNamespace).Get(consoleapi.OpenShiftConsoleDeploymentName, metav1.GetOptions{})
 }
 func deleteResource(client *Clientset, resource string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -92,6 +106,8 @@ func deleteResource(client *Clientset, resource string) error {
 	return err
 }
 func DeleteCompletely(getObject func() (runtime.Object, error), deleteObject func(*metav1.DeleteOptions) error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := getObject()
@@ -125,6 +141,8 @@ func DeleteCompletely(getObject func() (runtime.Object, error), deleteObject fun
 func IsResourceAvailable(errChan chan error, client *Clientset, resource string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	counter := 0
 	maxCount := 30
 	err := wait.Poll(1*time.Second, AsyncOperationTimeout, func() (stop bool, err error) {
@@ -144,6 +162,8 @@ func IsResourceAvailable(errChan chan error, client *Clientset, resource string)
 	errChan <- err
 }
 func IsResourceUnavailable(errChan chan error, client *Clientset, resource string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	counter := 0

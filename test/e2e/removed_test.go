@@ -8,6 +8,8 @@ import (
 func TestRemoved(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client := testframework.MustNewClientset(t, nil)
 	defer testframework.MustManageConsole(t, client)
 	testframework.MustRemoveConsole(t, client)

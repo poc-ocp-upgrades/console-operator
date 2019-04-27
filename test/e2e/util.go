@@ -15,6 +15,8 @@ var pollTimeout = 10 * time.Second
 func patchAndCheckConfigMap(t *testing.T, client *testframework.Clientset, isOperatorManaged bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Logf("patching Data on the console ConfigMap")
 	configMap, err := client.ConfigMaps(consoleapi.OpenShiftConsoleNamespace).Patch(consoleapi.OpenShiftConsoleConfigMapName, types.MergePatchType, []byte(`{"data": {"console-config.yaml": "test"}}`))
 	if err != nil {
@@ -38,6 +40,8 @@ func patchAndCheckConfigMap(t *testing.T, client *testframework.Clientset, isOpe
 func patchAndCheckService(t *testing.T, client *testframework.Clientset, isOperatorManaged bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Logf("patching Annotation on the console Service")
 	service, err := client.Services(consoleapi.OpenShiftConsoleNamespace).Patch(consoleapi.OpenShiftConsoleServiceName, types.MergePatchType, []byte(`{"metadata": {"annotations": {"service.alpha.openshift.io/serving-cert-secret-name": "test"}}}`))
 	if err != nil {
@@ -59,6 +63,8 @@ func patchAndCheckService(t *testing.T, client *testframework.Clientset, isOpera
 	return err
 }
 func patchAndCheckRoute(t *testing.T, client *testframework.Clientset, isOperatorManaged bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Logf("patching TargetPort on the console Route")

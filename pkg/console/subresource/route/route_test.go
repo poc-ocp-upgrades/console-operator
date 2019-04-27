@@ -14,6 +14,8 @@ import (
 func TestDefaultRoute(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		weight int32 = 100
 	)
@@ -34,6 +36,8 @@ func TestDefaultRoute(t *testing.T) {
 func TestStub(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		name	string
 		want	*routev1.Route
@@ -47,6 +51,8 @@ func TestStub(t *testing.T) {
 	}
 }
 func TestIsAdmitted(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct{ route *routev1.Route }

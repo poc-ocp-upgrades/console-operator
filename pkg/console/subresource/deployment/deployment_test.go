@@ -16,6 +16,8 @@ import (
 func TestDefaultDeployment(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var (
 		replicaCount	int32	= 2
 		labels			= map[string]string{"app": api.OpenShiftConsoleName, "component": "ui"}
@@ -45,6 +47,8 @@ func TestDefaultDeployment(t *testing.T) {
 func TestStub(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		name	string
 		want	*appsv1.Deployment
@@ -58,6 +62,8 @@ func TestStub(t *testing.T) {
 	}
 }
 func Test_consoleVolumes(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct{ vc []volumeConfig }
@@ -77,6 +83,8 @@ func Test_consoleVolumes(t *testing.T) {
 func Test_consoleVolumeMounts(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct{ vc []volumeConfig }
 	tests := []struct {
 		name	string
@@ -94,6 +102,8 @@ func Test_consoleVolumeMounts(t *testing.T) {
 func TestIsReady(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct{ deployment *appsv1.Deployment }
 	tests := []struct {
 		name	string
@@ -109,6 +119,8 @@ func TestIsReady(t *testing.T) {
 	}
 }
 func TestIsAvailableAndUpdated(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct{ deployment *appsv1.Deployment }

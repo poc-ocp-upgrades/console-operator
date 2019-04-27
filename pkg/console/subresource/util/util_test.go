@@ -11,6 +11,8 @@ import (
 func TestSharedLabels(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		name	string
 		want	map[string]string
@@ -24,6 +26,8 @@ func TestSharedLabels(t *testing.T) {
 	}
 }
 func TestLabelsForConsole(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tests := []struct {
@@ -41,6 +45,8 @@ func TestLabelsForConsole(t *testing.T) {
 func TestSharedMeta(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		name	string
 		want	metav1.ObjectMeta
@@ -54,6 +60,8 @@ func TestSharedMeta(t *testing.T) {
 	}
 }
 func TestOwnerRefFrom(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var truthy = true
@@ -72,6 +80,8 @@ func TestOwnerRefFrom(t *testing.T) {
 	}
 }
 func TestHTTPS(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct{ host string }

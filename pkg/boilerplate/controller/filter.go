@@ -25,12 +25,16 @@ type FilterFuncs struct {
 func (f FilterFuncs) Parent(obj v1.Object) (namespace, name string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.ParentFunc == nil {
 		return obj.GetNamespace(), obj.GetName()
 	}
 	return f.ParentFunc(obj)
 }
 func (f FilterFuncs) Add(obj v1.Object) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if f.AddFunc == nil {
@@ -41,6 +45,8 @@ func (f FilterFuncs) Add(obj v1.Object) bool {
 func (f FilterFuncs) Update(oldObj, newObj v1.Object) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.UpdateFunc == nil {
 		return false
 	}
@@ -49,12 +55,16 @@ func (f FilterFuncs) Update(oldObj, newObj v1.Object) bool {
 func (f FilterFuncs) Delete(obj v1.Object) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if f.DeleteFunc == nil {
 		return false
 	}
 	return f.DeleteFunc(obj)
 }
 func FilterByNames(parentFunc ParentFunc, names ...string) ParentFilter {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	set := sets.NewString(names...)

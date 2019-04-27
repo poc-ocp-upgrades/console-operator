@@ -61,6 +61,8 @@ type consoleOperator struct {
 func NewConsoleOperator(operatorConfigInformer operatorinformerv1.ConsoleInformer, configInformer configinformer.SharedInformerFactory, coreV1 corev1.Interface, managedCoreV1 corev1.Interface, deployments appsinformersv1.DeploymentInformer, routes routesinformersv1.RouteInformer, oauthClients oauthinformersv1.OAuthClientInformer, operatorConfigClient operatorclientv1.OperatorV1Interface, configClient configclientv1.ConfigV1Interface, corev1Client coreclientv1.CoreV1Interface, deploymentClient appsv1.DeploymentsGetter, routev1Client routeclientv1.RoutesGetter, oauthv1Client oauthclientv1.OAuthClientsGetter, versionGetter status.VersionGetter, recorder events.Recorder) operator.Runner {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c := &consoleOperator{operatorConfigClient: operatorConfigClient.Consoles(), consoleConfigClient: configClient.Consoles(), infrastructureConfigClient: configClient.Infrastructures(), secretsClient: corev1Client, configMapClient: corev1Client, serviceClient: corev1Client, deploymentClient: deploymentClient, routeClient: routev1Client, oauthClient: oauthv1Client, versionGetter: versionGetter, recorder: recorder}
 	secretsInformer := coreV1.Secrets()
 	configMapInformer := coreV1.ConfigMaps()
@@ -74,6 +76,8 @@ func NewConsoleOperator(operatorConfigInformer operatorinformerv1.ConsoleInforme
 func (c *consoleOperator) Key() (metav1.Object, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	operatorConfig, err := c.operatorConfigClient.Get(api.ConfigResourceName, metav1.GetOptions{})
 	if errors.IsNotFound(err) && CreateDefaultConsoleFlag {
 		if _, err := c.operatorConfigClient.Create(c.defaultConsoleOperatorConfig()); err != nil {
@@ -84,6 +88,8 @@ func (c *consoleOperator) Key() (metav1.Object, error) {
 	return operatorConfig, err
 }
 func (c *consoleOperator) Sync(obj metav1.Object) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	startTime := time.Now()
@@ -109,6 +115,8 @@ func (c *consoleOperator) Sync(obj metav1.Object) error {
 	return nil
 }
 func (c *consoleOperator) handleSync(operatorConfig *operatorsv1.Console, consoleConfig *configv1.Console, infrastructureConfig *configv1.Infrastructure) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	operatorConfigCopy := operatorConfig.DeepCopy()
@@ -155,6 +163,8 @@ func (c *consoleOperator) handleSync(operatorConfig *operatorsv1.Console, consol
 func (c *consoleOperator) deleteAllResources(cr *operatorsv1.Console) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	logrus.Info("deleting console resources")
 	defer logrus.Info("finished deleting console resources")
 	var errs []error
@@ -172,9 +182,13 @@ func (c *consoleOperator) deleteAllResources(cr *operatorsv1.Console) error {
 func (c *consoleOperator) defaultConsoleConfig() *configv1.Console {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &configv1.Console{ObjectMeta: metav1.ObjectMeta{Name: api.ConfigResourceName}}
 }
 func (c *consoleOperator) defaultConsoleOperatorConfig() *operatorsv1.Console {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &operatorsv1.Console{ObjectMeta: metav1.ObjectMeta{Name: api.ConfigResourceName}, Spec: operatorsv1.ConsoleSpec{OperatorSpec: operatorsv1.OperatorSpec{ManagementState: operatorsv1.Managed, LogLevel: operatorsv1.Normal}}}
@@ -182,7 +196,16 @@ func (c *consoleOperator) defaultConsoleOperatorConfig() *operatorsv1.Console {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

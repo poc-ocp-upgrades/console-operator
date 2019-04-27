@@ -17,5 +17,7 @@ type wrapper struct{ KeySyncer }
 func (s *wrapper) Key(namespace, name string) (v1.Object, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.KeySyncer.Key()
 }

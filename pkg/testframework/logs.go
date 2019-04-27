@@ -17,6 +17,8 @@ type PodLog []string
 func (log PodLog) Contains(re *regexp.Regexp) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, line := range log {
 		if re.MatchString(line) {
 			return true
@@ -30,6 +32,8 @@ type PodSetLogs map[string]PodLog
 func (psl PodSetLogs) Contains(re *regexp.Regexp) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, podlog := range psl {
 		if podlog.Contains(re) {
 			return true
@@ -38,6 +42,8 @@ func (psl PodSetLogs) Contains(re *regexp.Regexp) bool {
 	return false
 }
 func GetLogsByLabelSelector(client *Clientset, namespace string, labelSelector *metav1.LabelSelector) (PodSetLogs, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	selector, err := metav1.LabelSelectorAsSelector(labelSelector)
@@ -74,9 +80,13 @@ func GetLogsByLabelSelector(client *Clientset, namespace string, labelSelector *
 func DumpObject(t *testing.T, prefix string, obj interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Logf("%s:\n%s", prefix, spew.Sdump(obj))
 }
 func DumpPodLogs(t *testing.T, podLogs PodSetLogs) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(podLogs) > 0 {
@@ -92,9 +102,13 @@ func DumpPodLogs(t *testing.T, podLogs PodSetLogs) {
 func GetOperatorLogs(client *Clientset) (PodSetLogs, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return GetLogsByLabelSelector(client, consoleapi.OpenShiftConsoleNamespace, &metav1.LabelSelector{MatchLabels: map[string]string{"name": "console-operator"}})
 }
 func DumpOperatorLogs(t *testing.T, client *Clientset) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	podLogs, err := GetOperatorLogs(client)

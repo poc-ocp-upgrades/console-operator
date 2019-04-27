@@ -66,6 +66,8 @@ servingInfo:
 func TestDefaultConfigMap(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct {
 		operatorConfig		*operatorv1.Console
 		consoleConfig		*configv1.Console
@@ -108,6 +110,8 @@ func TestDefaultConfigMap(t *testing.T) {
 func TestStub(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		name	string
 		want	*corev1.ConfigMap
@@ -121,6 +125,8 @@ func TestStub(t *testing.T) {
 	}
 }
 func TestNewYamlConfig(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct {
@@ -146,6 +152,8 @@ func TestNewYamlConfig(t *testing.T) {
 func Test_consoleBaseAddr(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct{ host string }
 	tests := []struct {
 		name	string
@@ -161,6 +169,8 @@ func Test_consoleBaseAddr(t *testing.T) {
 	}
 }
 func Test_extractYAML(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct{ newConfig *corev1.ConfigMap }

@@ -32,6 +32,8 @@ import (
 func sync_v400(co *consoleOperator, operatorConfig *operatorv1.Console, consoleConfig *configv1.Console, infrastructureConfig *configv1.Infrastructure) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	logrus.Println("running sync loop 4.0.0")
 	recorder := co.recorder
 	toUpdate := false
@@ -154,6 +156,8 @@ func sync_v400(co *consoleOperator, operatorConfig *operatorv1.Console, consoleC
 func SyncConsoleConfig(co *consoleOperator, consoleConfig *configv1.Console, route *routev1.Route) (*configv1.Console, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	host := routesub.GetCanonicalHost(route)
 	if host == "" {
 		customErr := customerrors.NewSyncError("waiting on route host")
@@ -168,6 +172,8 @@ func SyncConsoleConfig(co *consoleOperator, consoleConfig *configv1.Console, rou
 	return co.consoleConfigClient.UpdateStatus(consoleConfig)
 }
 func SyncDeployment(co *consoleOperator, recorder events.Recorder, operatorConfig *operatorv1.Console, cm *corev1.ConfigMap, serviceCAConfigMap *corev1.ConfigMap, sec *corev1.Secret, rt *routev1.Route) (*appsv1.Deployment, bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	requiredDeployment := deploymentsub.DefaultDeployment(operatorConfig, cm, serviceCAConfigMap, sec, rt)
@@ -185,6 +191,8 @@ func SyncDeployment(co *consoleOperator, recorder events.Recorder, operatorConfi
 	return deployment, deploymentChanged, nil
 }
 func SyncOAuthClient(co *consoleOperator, operatorConfig *operatorv1.Console, sec *corev1.Secret, rt *routev1.Route) (*oauthv1.OAuthClient, bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	host := routesub.GetCanonicalHost(rt)
@@ -209,6 +217,8 @@ func SyncOAuthClient(co *consoleOperator, operatorConfig *operatorv1.Console, se
 func SyncSecret(co *consoleOperator, recorder events.Recorder, operatorConfig *operatorv1.Console) (*corev1.Secret, bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	secret, err := co.secretsClient.Secrets(api.TargetNamespace).Get(secretsub.Stub().Name, metav1.GetOptions{})
 	if apierrors.IsNotFound(err) || secretsub.GetSecretString(secret) == "" {
 		return resourceapply.ApplySecret(co.secretsClient, recorder, secretsub.DefaultSecret(operatorConfig, crypto.Random256BitsString()))
@@ -220,6 +230,8 @@ func SyncSecret(co *consoleOperator, recorder events.Recorder, operatorConfig *o
 	return secret, false, nil
 }
 func SyncConfigMap(co *consoleOperator, recorder events.Recorder, operatorConfig *operatorv1.Console, consoleConfig *configv1.Console, infrastructureConfig *configv1.Infrastructure, rt *routev1.Route) (*corev1.ConfigMap, bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	managedConfig, mcErr := co.configMapClient.ConfigMaps(api.OpenshiftConfigManagedNamespace).Get(api.OpenShiftConsoleConfigMapName, metav1.GetOptions{})
@@ -243,6 +255,8 @@ func SyncConfigMap(co *consoleOperator, recorder events.Recorder, operatorConfig
 	return cm, cmChanged, cmErr
 }
 func SyncServiceCAConfigMap(co *consoleOperator, operatorConfig *operatorv1.Console) (*corev1.ConfigMap, bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	required := configmapsub.DefaultServiceCAConfigMap(operatorConfig)
@@ -277,6 +291,8 @@ func SyncServiceCAConfigMap(co *consoleOperator, operatorConfig *operatorv1.Cons
 func SyncService(co *consoleOperator, recorder events.Recorder, operatorConfig *operatorv1.Console) (*corev1.Service, bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	svc, svcChanged, svcErr := resourceapply.ApplyService(co.serviceClient, recorder, servicesub.DefaultService(operatorConfig))
 	if svcErr != nil {
 		logrus.Errorf("%q: %v \n", "service", svcErr)
@@ -285,6 +301,8 @@ func SyncService(co *consoleOperator, recorder events.Recorder, operatorConfig *
 	return svc, svcChanged, svcErr
 }
 func SyncRoute(co *consoleOperator, operatorConfig *operatorv1.Console) (*routev1.Route, bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rt, rtIsNew, rtErr := routesub.GetOrCreate(co.routeClient, routesub.DefaultRoute(operatorConfig))
@@ -310,6 +328,8 @@ func SyncRoute(co *consoleOperator, operatorConfig *operatorv1.Console) (*routev
 	return rt, rtIsNew, rtErr
 }
 func getDeploymentGeneration(co *consoleOperator) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	deployment, err := co.deploymentClient.Deployments(api.TargetNamespace).Get(deploymentsub.Stub().Name, metav1.GetOptions{})

@@ -12,6 +12,8 @@ import (
 func TestDeRegisterConsoleFromOAuthClient(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type args struct{ client *oauthv1.OAuthClient }
 	tests := []struct {
 		name	string
@@ -30,6 +32,8 @@ func TestDeRegisterConsoleFromOAuthClient(t *testing.T) {
 func TestStub(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tests := []struct {
 		name	string
 		want	*oauthv1.OAuthClient
@@ -43,6 +47,8 @@ func TestStub(t *testing.T) {
 	}
 }
 func TestSetRedirectURI(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type args struct {

