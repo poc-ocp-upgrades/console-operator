@@ -5,11 +5,9 @@ import (
 	"os"
 	"testing"
 	"time"
-
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/wait"
 	kubeset "k8s.io/client-go/kubernetes"
-
 	consoleapi "github.com/openshift/console-operator/pkg/api"
 	"github.com/openshift/console-operator/pkg/testframework"
 )
@@ -19,32 +17,29 @@ var (
 )
 
 func TestMain(m *testing.M) {
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeconfig, err := testframework.GetConfig()
 	if err != nil {
 		fmt.Printf("unable to get kubeconfig: %s", err)
 		os.Exit(1)
 	}
-
 	kubeClient, err = kubeset.NewForConfig(kubeconfig)
 	if err != nil {
 		fmt.Printf("%#v", err)
 		os.Exit(1)
 	}
-
-	// e2e test job does not guarantee our operator is up before
-	// launching the test, so we need to do so.
 	fmt.Println("checking for console-operator availability")
 	err = waitForOperator()
 	if err != nil {
 		fmt.Println("failed waiting for operator to start")
 		os.Exit(1)
 	}
-
 	os.Exit(m.Run())
 }
-
 func waitForOperator() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	depClient := kubeClient.AppsV1().Deployments(consoleapi.OpenShiftConsoleOperatorNamespace)
 	err := wait.PollImmediate(1*time.Second, 10*time.Minute, func() (bool, error) {
 		_, err := depClient.Get(consoleapi.OpenShiftConsoleOperator, metav1.GetOptions{})
