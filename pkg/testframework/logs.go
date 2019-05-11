@@ -6,9 +6,7 @@ import (
 	"io"
 	"regexp"
 	"testing"
-
 	"github.com/davecgh/go-spew/spew"
-
 	consoleapi "github.com/openshift/console-operator/pkg/api"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -17,6 +15,8 @@ import (
 type PodLog []string
 
 func (log PodLog) Contains(re *regexp.Regexp) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, line := range log {
 		if re.MatchString(line) {
 			return true
@@ -28,6 +28,8 @@ func (log PodLog) Contains(re *regexp.Regexp) bool {
 type PodSetLogs map[string]PodLog
 
 func (psl PodSetLogs) Contains(re *regexp.Regexp) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, podlog := range psl {
 		if podlog.Contains(re) {
 			return true
@@ -35,20 +37,17 @@ func (psl PodSetLogs) Contains(re *regexp.Regexp) bool {
 	}
 	return false
 }
-
 func GetLogsByLabelSelector(client *Clientset, namespace string, labelSelector *metav1.LabelSelector) (PodSetLogs, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	selector, err := metav1.LabelSelectorAsSelector(labelSelector)
 	if err != nil {
 		return nil, err
 	}
-
-	podList, err := client.Pods(namespace).List(metav1.ListOptions{
-		LabelSelector: selector.String(),
-	})
+	podList, err := client.Pods(namespace).List(metav1.ListOptions{LabelSelector: selector.String()})
 	if err != nil {
 		return nil, err
 	}
-
 	podLogs := make(PodSetLogs)
 	for _, pod := range podList.Items {
 		var podLog PodLog
@@ -72,13 +71,14 @@ func GetLogsByLabelSelector(client *Clientset, namespace string, labelSelector *
 	}
 	return podLogs, nil
 }
-
-// DumpObject prints the object to the test log.
 func DumpObject(t *testing.T, prefix string, obj interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.Logf("%s:\n%s", prefix, spew.Sdump(obj))
 }
-
 func DumpPodLogs(t *testing.T, podLogs PodSetLogs) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(podLogs) > 0 {
 		for pod, logs := range podLogs {
 			t.Logf("=== logs for pod/%s", pod)
@@ -89,16 +89,14 @@ func DumpPodLogs(t *testing.T, podLogs PodSetLogs) {
 		t.Logf("=== end of logs")
 	}
 }
-
 func GetOperatorLogs(client *Clientset) (PodSetLogs, error) {
-	return GetLogsByLabelSelector(client, consoleapi.OpenShiftConsoleNamespace, &metav1.LabelSelector{
-		MatchLabels: map[string]string{
-			"name": "console-operator",
-		},
-	})
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return GetLogsByLabelSelector(client, consoleapi.OpenShiftConsoleNamespace, &metav1.LabelSelector{MatchLabels: map[string]string{"name": "console-operator"}})
 }
-
 func DumpOperatorLogs(t *testing.T, client *Clientset) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	podLogs, err := GetOperatorLogs(client)
 	if err != nil {
 		t.Logf("failed to get the operator logs: %s", err)

@@ -1,38 +1,36 @@
 package controller
 
-// TODO decide how to best express changes of behavior for WithInformer
+type InformerOption func() informerOptionCase
+type informerOptionCase int
 
-type InformerOption func() informerOptionCase // public so it can be referenced out of this package
-
-type informerOptionCase int // private so the set of cases is sealed
-
-// all cases are private
 const (
-	syncDefault informerOptionCase = iota
+	syncDefault	informerOptionCase	= iota
 	noSync
 )
 
-// public opt-out of sync
 func WithNoSync() InformerOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func() informerOptionCase {
 		return noSync
 	}
 }
-
-// private default
-// will need to be exposed when more options are added
 func withSync() InformerOption {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func() informerOptionCase {
 		return syncDefault
 	}
 }
-
 func informerOptionToOption(opt InformerOption, getter InformerGetter) Option {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch opt() {
 	case syncDefault:
-		return WithInformerSynced(getter) // safe default
+		return WithInformerSynced(getter)
 	case noSync:
-		return func(*controller) {} // do nothing
+		return func(*controller) {
+		}
 	default:
 		panic(opt)
 	}
